@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-
+$DTABASE_URL=parse_url(url: 'DTABASE_URL');
 return [
 
     /*
@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -66,11 +66,11 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $DTABASE_URL['host'],
+            'port' =>  $DTABASE_URL['port'],
+            'database' => ltrim($DTABASE_URL['path'],"/")
+            'username' => $DTABASE_URL['user'],
+            'password' => $DTABASE_URL['pass'],
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
